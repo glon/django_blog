@@ -14,17 +14,16 @@
 
             <ul class='nav navbar-nav navbar-right' style="margin-right: 10px">
                 {% if user.is_authenticated %}
-                    <li>
-                        <div class="dropdown" style="margin-top: 8px">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown">
-                                {{ user.username }}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="{% url 'account:password_change' %}">修改密码</a></li>
-                            </ul>
-                        </div>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                          {{ user.username }}
+                          <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="{% url 'account:password_change' %}">修改密码</a></li>
+                      </ul>
                     </li>
+{#                    <li><a href='#'>{{ user.username }}</a></li>#}
+                    <li><a href='{%  url 'account:user_logout' %}'>Logout</a></li>
                 {% else %}
                     <li><a href='{% url 'account:user_login' %}'>LOGIN</a></li>
                 {% endif %}
@@ -32,6 +31,9 @@
         </div>
     </nav>
 </div>
+
+<script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 
 
 

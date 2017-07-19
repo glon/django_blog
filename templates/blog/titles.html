@@ -1,5 +1,5 @@
 {% extends "../base.html" %}
-
+{% load staticfiles %}
 {% block title %}blog titles{% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@
     <div class="col-xs-6 col-md-4">
         <h2>广告</h2>
         <p>广告位招租</p>
-        <img src="http://www.mrwallpaper/wallpapers/Fluffy-Cat.jpg" width="200px">
+        <img src="{% static 'images/zhaoyihuan.jpg' %}" width="200px" />
     </div>
 </div>
 {% endblock %}
