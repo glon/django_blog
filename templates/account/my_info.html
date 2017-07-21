@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load staticfiles %}
+
 {% block title %}my infomation{% endblock %}
 
 {% block content %}
@@ -48,7 +50,18 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <p>picture</p>
+                <div style="margin-right: 100px">
+                    {% if userinfo.photo %}
+                        <img src="{{ userinfo.photo | striptags }}" id="my_photo" name="user_face" class="img-circle" />
+                    {% else %}
+                        <img src="{% static 'images/zhaoyihuan.jpg' %}" id="my_photo" name="user_face" class="img-circle" />
+                    {% endif %}
+                </div>
+                <div style="margin-right: 100px">
+                    <button class="btn-lg btn btn-primary" id="upload_image" onclick="upload_image_layer()">
+                        upload my photo
+                    </button>
+                </div>
             </div>
         </div>
     </div>
