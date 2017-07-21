@@ -13,6 +13,8 @@
             {{ form.as_p }}
             <input type="submit" value="Loin" />
         </form>
+        <p style="margin-top: 10px">Forgot your password? <a href="{% url 'password_reset_recover' %}" >reset password</a>.</p>
+        <p style="margin-top: 10px">If you had not a username, <a href="{% url 'account:user_register' %}">Register to be a user</a>.</p>
     </div>
 {% endblock %}
 
