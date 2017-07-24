@@ -19,7 +19,10 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ column.column }}</td>
-                    <td>--</td>
+                    <td>
+                        <a name="edit" href="javascript:" onclick="edit_column(this, {{ column.id }})"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a name="delete" href="javascript:" onclick="del_column(this, {{ column.id }})"><span class="glyphicon glyphicon-trash" style="margin-left: 20px"></span></a>
+                    </td>
                 </tr>
             {% empty %}
                 <p>还没有设置栏目。</p>
@@ -57,6 +60,36 @@
                 btn2:function (index, layero) {
                     layer.close(index)
                 }
+            });
+        }
+
+        function edit_column(the,column_id) {
+            var name = $(the).parents('tr').children('td').eq(1).text();
+            //console.log(name);
+            var index = layer.open({
+                type:1,
+                skin:'layui-layer-rim',
+                area:['400px', '220px'],
+                title:'编辑栏目',
+                content:'<div class="text-center" style="margin-top:20px"><p>请编辑栏目名称</p><input type="text" id ="new_name" value='+name+'></p></div>',
+                btn:['确定', '取消'],
+                yes:function (index, layero) {
+                    new_name = $("#new_name").val();
+                    //console.log(new_name);
+                    $.ajax({
+                        url:"{% url 'article:rename_article_column' %}",
+                        type:"POST",
+                        data:{'column_id':column_id, 'column_name':new_name},
+                        success:function (e) {
+                            if(e=='1'){
+                                parent.location.reload();
+                                layer.msg('Good');
+                            }else {
+                                layer.msg('Sorry, 修改失败。');
+                            }
+                        },
+                    });
+                },
             });
         }
     </script>
