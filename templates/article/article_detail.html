@@ -1,0 +1,14 @@
+{% extends "article/base.html" %}
+{% block title %}article list{% endblock %}
+
+{% block content %}
+    <div>
+        <h1>{{ article.title }}</h1>
+        <p>{{ article.username }}</p>
+        <div>
+            {{ article.body }}
+        </div>
+    </div>
+{% endblock %}
+
+
