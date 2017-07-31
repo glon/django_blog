@@ -13,9 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.views.generic import TemplateView
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.views.generic import TemplateView
 
 
 urlpatterns = [
@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^account/', include('account.urls', namespace='account', app_name='account')),
     url(r'^pwd_reset/', include('password_reset.urls')),
     url(r'^article/', include('article.urls', namespace='article', app_name='article')),
-    url(r'home/',TemplateView.as_view(template_name='home.html')),
+    url(r'home/', TemplateView.as_view(template_name='home.html'),name='home'),
 ]
