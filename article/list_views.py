@@ -7,6 +7,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
 
+import redis
+from django.conf import settings
+
+r = redis.StrictRedis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
 
 # def article_titles(request):
 #     articles_title = ArticlePost.objects.all()
@@ -74,10 +78,13 @@ def article_titles(request, username=None):
         return render(request, "article/article_titles.html", {"articles": articles, "page": current_page})
 
 
+# def article_detail(request, id, slug):
+#     article = get_object_or_404(ArticlePost, id=id, slug=slug)
+#     return render(request, "article/article_detail2.html", {"article": article})
 def article_detail(request, id, slug):
     article = get_object_or_404(ArticlePost, id=id, slug=slug)
-    return render(request, "article/article_detail2.html", {"article": article})
-
+    total_views = r.incr("articl:{}:views".format(article.id))
+    return render(request, "article/article_detail2.html", {"article":article, "total_views":total_views})
 
 @csrf_exempt
 @require_POST
