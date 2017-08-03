@@ -29,7 +29,7 @@
             </div>
             <div>
                 <p class="text-center"><strong>点赞本文的读者</strong></p>
-                {% for user in aricle.users_like.all %}
+                {% for user in article.users_like.all %}
                     <p class="text-center">{{ user.username }}</p>
                 {% empty %}
                     <p class="text-center">还没有人对此文章表态</p>
