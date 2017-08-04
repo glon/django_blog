@@ -11,4 +11,9 @@ def total_articles():
 def author_total_articles(user):
     return user.article.count()
 
+@register.inclusion_tag('article/latest_articles.html')
+def latest_articles(n=5):
+    newest_articles = ArticlePost.objects.order_by("-created")[:n]
+    return {"latest_articles":newest_articles}
+
 
