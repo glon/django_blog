@@ -1,5 +1,6 @@
 from django import template
 from article.models import ArticlePost
+from django.db.models import Count
 
 register = template.Library()
 
@@ -16,4 +17,6 @@ def latest_articles(n=5):
     newest_articles = ArticlePost.objects.order_by("-created")[:n]
     return {"latest_articles":newest_articles}
 
-
+@register.assignment_tag
+def most_commented_articles(n=3):
+    return ArticlePost.objects.annotate(total_comments=Count('comments')).order_by("-total_comments")[:n]
