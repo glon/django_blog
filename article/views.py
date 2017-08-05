@@ -60,7 +60,7 @@ def article_post(request):
                 tags = request.POST['tags']
                 if tags:
                     for atag in json.loads(tags):
-                        tag = request.user.tag.get(tag=tag)
+                        tag = request.user.tag.get(tag=atag)
                         new_article.article_tag.add(tag)
 
                 return HttpResponse('1')
