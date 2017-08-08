@@ -7,4 +7,5 @@ Pillow==4.2.1
 pytz==2017.2
 redis==2.10.5
 regex==2017.7.11
+sorl-thumbnail==12.3
 Unidecode==0.4.21
