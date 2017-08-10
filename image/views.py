@@ -44,7 +44,9 @@ def del_image(request):
         return JsonResponse({'status':'2'})
 
 
-
+def falls_image(request):
+    images = Image.objects.all()
+    return render(request, 'image/falls_images.html', {'images':images})
 
 
 
