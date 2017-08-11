@@ -22,16 +22,12 @@ class UserMixin:
 
 
 class UserCourseMixin(UserMixin):
-    module = Course
+    model = Course
 
 
 class ManageCourseListView(UserCourseMixin, ListView):
     context_object_name = "courses"
     template_name = 'course/manage_course_list.html'
-
-
-
-
 
 
 
