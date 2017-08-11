@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
+from braces.views import LoginRequiredMixin
 
 from .models import Course
 
@@ -21,8 +22,9 @@ class UserMixin:
         return qs.filter(user=self.request.user)
 
 
-class UserCourseMixin(UserMixin):
+class UserCourseMixin(UserMixin, LoginRequiredMixin):
     model = Course
+    login_url = '/account/login/'
 
 
 class ManageCourseListView(UserCourseMixin, ListView):
