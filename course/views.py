@@ -1,13 +1,14 @@
 import json
 from django.http import HttpResponse
-from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView
-from django.shortcuts import redirect
-from .forms import CreateCourseForm
-from .models import Course
+from django.shortcuts import redirect, render
+from django.views import View
+
+from .forms import CreateCourseForm, CreateLessonForm
+from .models import Course, Lesson
 
 
 # Create your views here.
@@ -63,4 +64,19 @@ class DeleteCourseView(UserCourseMixin, DeleteView):
         else:
             return resp
 
+class CreateLessonView(LoginRequiredMixin, View):
+    model = Lesson
+    login_url = '/account/login/'
+
+    def get(self, request, *args, **kwargs):
+        form = CreateLessonForm(user=self.request.user)
+        return render(request, "course/create_lesson.html", {'form':form})
+
+    def post(self, request, *args, **kwargs):
+        form = CreateLessonForm(self.request.user, request.POST, request.FILES)
+        if form.is_valid():
+            new_lesson = form.save(commit=False)
+            new_lesson.user = self.request.user
+            new_lesson.save()
+            return redirect("course:manage_course")
 
