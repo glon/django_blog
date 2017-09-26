@@ -4,8 +4,9 @@ from django.views.generic import TemplateView, ListView
 from braces.views import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
+from django.views.generic.base import TemplateResponseMixin
 
 from .forms import CreateCourseForm, CreateLessonForm
 from .models import Course, Lesson
@@ -80,3 +81,10 @@ class CreateLessonView(LoginRequiredMixin, View):
             new_lesson.save()
             return redirect("course:manage_course")
 
+class ListLessonView(LoginRequiredMixin, TemplateResponseMixin, View):
+    login_url = '/account/login/'
+    template_name = 'course/list_lessons.html'
+
+    def get(self, request, course_id):
+        course = get_object_or_404(Course, id = course_id)
+        return self.render_to_response({'course':course})
